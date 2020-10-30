@@ -1,3 +1,4 @@
+//Asegurarse de usar en un IDE de C
 #include<stdio.h>
 struct node
 {
