@@ -1,48 +1,93 @@
-//Asegurarse de usar en un IDE de C
-#include<stdio.h>
-struct node
-{
-    unsigned dist[20];
-    unsigned from[20];
-}rt[10];
-int main()
-{
-    int costmat[20][20];
-    int nodes, i, j, k, count = 0;
-    printf("\nEnter the number of nodes : ");
-    scanf_s("%d", &nodes);//Enter the nodes
-    printf("\nEnter the cost matrix :\n");
-    for (i = 0; i < nodes; i++)
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+import java.util.Scanner;  
+ public class ford 
+ {   
+   private int D[]; 
+   private int num_ver;     
+   public static final int MAX_VALUE = 999;        
+    public ford(int num_ver)   
+    {          
+      this.num_ver = num_ver;       
+      D = new int[num_ver + 1];   
+    } 
+    
+   public void BellmanFordEvaluation(int source, int A[][])     
+   {     
+    for (int node = 1; node <= num_ver; node++)      
+     {        
+          D[node] = MAX_VALUE;
+     }  
+    
+   D[source] = 0;  
+  
+   for (int node = 1; node <= num_ver - 1; node++)     
+      {           
+        for (int sn = 1; sn <= num_ver; sn++)          
+        {                 
+          for (int dn = 1; dn <= num_ver; dn++)        
+            {                       
+        	  if (A[sn][dn] != MAX_VALUE)                
+        	  {                     
+        		  if (D[dn] > D[sn]+ A[sn][dn])                           
+        			  D[dn] = D[sn] + A[sn][dn];                    
+        	  }               
+            }              
+          }         
+      } 
+   
+   for (int sn = 1; sn <= num_ver; sn++)         
+   {           
+     for (int dn = 1; dn <= num_ver; dn++)         
+      {              
+      if (A[sn][dn] != MAX_VALUE)                
+      {                 
+    	  if (D[dn] > D[sn]+ A[sn][dn]) 
+System.out.println("The Graph contains negative egde cycle");                          }              
+  }         
+}
+   
+   for (int vertex = 1; vertex <= num_ver; vertex++)                 
+   {         
+System.out.println("distance of source\t"+source+" to "+vertex+" is " + D[vertex]);       
+    }     
+}
+      
+  public static void main(String[ ] args)   
+  {     
+     int num_ver = 0;        
+     int source;         
+     Scanner scanner = new Scanner(System.in);   
+     System.out.println("Enter the number of vertices");        
+      num_ver = scanner.nextInt();  
+      
+      int A[][] = new int[num_ver + 1][num_ver + 1];         
+     System.out.println("Enter the adjacency matrix");         
+    for (int sn = 1; sn <= num_ver; sn++)        
+    {         
+     for (int dn = 1; dn <= num_ver; dn++)          
     {
-        for (j = 0; j < nodes; j++)
-        {
-            scanf_s("%d", &costmat[i][j]);
-            costmat[i][i] = 0;
-            rt[i].dist[j] = costmat[i][j];//initialise the distance equal to cost matrix
-            rt[i].from[j] = j;
-        }
-    }
-    do
-    {
-        count = 0;
-        for (i = 0; i < nodes; i++)//We choose arbitary vertex k and we calculate the direct distance from the node i to k using the cost matrix
-        //and add the distance from k to node j
-            for (j = 0; j < nodes; j++)
-                for (k = 0; k < nodes; k++)
-                    if (rt[i].dist[j] > costmat[i][k] + rt[k].dist[j])
-                    {//We calculate the minimum distance
-                        rt[i].dist[j] = rt[i].dist[k] + rt[k].dist[j];
-                        rt[i].from[j] = k;
-                        count++;
-                    }
-    } while (count != 0);
-    for (i = 0; i < nodes; i++)
-    {
-        printf("\n\n For router %d\n", i + 1);
-        for (j = 0; j < nodes; j++)
-        {
-            printf("\t\nnode %d via %d Distance %d ", j + 1, rt[i].from[j] + 1, rt[i].dist[j]);
-        }
-    }
-    printf("\n\n");
-    }
+    	 A[sn][dn] = scanner.nextInt();        
+    	 if (sn == dn)                
+    	 {           
+             A[sn][dn] = 0;                 
+             continue;            
+       }               
+    	 if (A[sn][dn] == 0)               
+    	 {           
+             A[sn][dn] = MAX_VALUE;              
+    	 }              
+    	}
+     }  
+    
+    
+    	System.out.println("Enter the source vertex");   
+         source = scanner.nextInt();     
+        ford b = new ford (num_ver);     
+        b.BellmanFordEvaluation(source, A);        
+        scanner.close();
+      }
+  }
