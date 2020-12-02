@@ -46,13 +46,13 @@ import java.util.Scanner;
       if (A[sn][dn] != MAX_VALUE)                
       {                 
     	  if (D[dn] > D[sn]+ A[sn][dn]) 
-System.out.println("The Graph contains negative egde cycle");                          }              
+System.out.println("El grafo contiene ciclo negativo");                          }              
   }         
 }
    
    for (int vertex = 1; vertex <= num_ver; vertex++)                 
    {         
-System.out.println("distance of source\t"+source+" to "+vertex+" is " + D[vertex]);       
+System.out.println("La distancia del nodo "+source+" hacia "+vertex+" es " + D[vertex]);       
     }     
 }
       
@@ -61,11 +61,11 @@ System.out.println("distance of source\t"+source+" to "+vertex+" is " + D[vertex
      int num_ver = 0;        
      int source;         
      Scanner scanner = new Scanner(System.in);   
-     System.out.println("Enter the number of vertices");        
+     System.out.println("Ingrese numero de nodos: ");        
       num_ver = scanner.nextInt();  
       
       int A[][] = new int[num_ver + 1][num_ver + 1];         
-     System.out.println("Enter the adjacency matrix");         
+     System.out.println("Ingrese matriz de adyacencia de los nodos: ");         
     for (int sn = 1; sn <= num_ver; sn++)        
     {         
      for (int dn = 1; dn <= num_ver; dn++)          
@@ -84,7 +84,7 @@ System.out.println("distance of source\t"+source+" to "+vertex+" is " + D[vertex
      }  
     
     
-    	System.out.println("Enter the source vertex");   
+    	System.out.println("Ingrese el numero del nodo origen: ");   
          source = scanner.nextInt();     
         ford b = new ford (num_ver);     
         b.BellmanFordEvaluation(source, A);        
